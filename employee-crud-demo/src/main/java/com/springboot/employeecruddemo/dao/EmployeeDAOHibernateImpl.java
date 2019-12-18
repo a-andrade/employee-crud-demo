@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+// Version 1 DAO Technique ...  using EntityManager but leveraging the native Hibernate API
 @Repository
 public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 
