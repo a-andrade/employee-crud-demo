@@ -1,6 +1,8 @@
 package com.springboot.employeecruddemo.controller;
 
 import com.springboot.employeecruddemo.entity.Employee;
+import com.springboot.employeecruddemo.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,7 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    private List<Employee> theEmployees;
+    /*private List<Employee> theEmployees;
 
     @PostConstruct
     private void loadData() {
@@ -28,11 +30,22 @@ public class EmployeeController {
         theEmployees.add(emp1);
         theEmployees.add(emp2);
         theEmployees.add(emp3);
+    }*/
+
+    private EmployeeService employeeService;
+
+    @Autowired
+    public EmployeeController(EmployeeService theEmployeeService) {
+        this.employeeService = theEmployeeService;
     }
 
     @GetMapping("/list")
     public String listEmployees(Model theModel) {
 
+        // get employees from db
+        List<Employee> theEmployees = employeeService.findAll();
+
+        // add to spring model
         theModel.addAttribute("employees", theEmployees);
 
         return "list-employees";
